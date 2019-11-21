@@ -1,0 +1,7 @@
+require 'gardenly-cli/version.rb'
+require 'commands/base'
+require 'commands/logs'
+require 'commands/console'
+require 'commands/add_plant'
+require 'commands/update_plant'
+require 'commands/cli'

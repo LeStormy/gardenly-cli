@@ -1,0 +1,78 @@
+#!/usr/bin/env ruby
+require 'gli'
+require 'gardenly-cli'
+
+module Wrapper
+  include GLI::App
+  extend self
+
+  program_desc 'Gardenly CLI admin'
+
+  version GardenlyCli::VERSION
+
+  subcommand_option_handling :normal
+  arguments :strict
+
+  desc 'connect and start rails console'
+    command :cli do |console_command|
+      console_command.action do |global_options,options,args|
+        Commands::Cli.new(args).execute
+    end
+  end
+
+  desc 'connect and start rails console'
+  command :console do |rails_command|
+    rails_command.instance_eval do
+      arg 'app'
+      arg 'environment'
+      command :console do |console_command|
+        console_command.action do |global_options,options,args|
+          Commands::Rails::Console.new(args).execute
+        end
+      end
+    end
+  end
+
+  desc "connect and tail app's logs"
+  command :logs do |bash_command|
+    bash_command.action do |global_options,options,args|
+      Commands::Logs.new(args).execute
+    end
+  end
+
+  desc "Modify Garden"
+  arg 'app'
+  arg 'environment'
+  command :update_garden do |bash_command|
+    bash_command.action do |global_options,options,args|
+      Commands::UpdateGarden.new(args).execute
+    end
+  end
+
+  desc "Modify User"
+  arg 'app'
+  arg 'environment'
+  command :update_user do |bash_command|
+    bash_command.action do |global_options,options,args|
+      Commands::UpdateUser.new(args).execute
+    end
+  end
+
+  desc "Add Plant"
+  command :add_plant do |bash_command|
+    bash_command.action do |global_options,options,args|
+      Commands::AddPlant.new(args).execute
+    end
+  end
+
+  desc "Modify Plant"
+  arg 'app'
+  arg 'environment'
+  command :update_plant do |bash_command|
+    bash_command.action do |global_options,options,args|
+      Commands::UpdatePlant.new(args).execute
+    end
+  end
+
+  run(ARGV)
+end

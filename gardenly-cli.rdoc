@@ -1,0 +1,5 @@
+= gardenly-cli
+
+Generate this with
+    gardenly-cli _doc
+After you have described your command line interface
