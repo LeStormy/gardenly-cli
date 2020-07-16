@@ -1,6 +1,4 @@
 = gardenly-cli
 
-Describe your project here
-
-:include:gardenly-cli.rdoc
+Ruby client that interacts with another application to command line add stuff in the database, not really the most fun project around here
 
